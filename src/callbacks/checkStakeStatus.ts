@@ -1,19 +1,40 @@
 import { toasterMessageSelector } from '../selectors';
-import { updateBalance } from '../getInfo/getBalance';
+import { updateBalance } from '../stakeInfo/getBalance';
+import isCupis from '../isCupis';
 
 const checkStakeStatus = (): boolean => {
-  const toasterMessage = document.querySelector(toasterMessageSelector);
-  if (!toasterMessage) {
-    worker.Helper.WriteLine('Ошибка: Не найдено сообщение о результате ставки');
+  if (isCupis()) {
+    const toasterMessageElement = document.querySelector(
+      toasterMessageSelector
+    );
+    if (!toasterMessageElement) {
+      worker.Helper.WriteLine(
+        'Ошибка: Не найдено сообщение о результате ставки'
+      );
+      return false;
+    }
+    const toasterMessage = toasterMessageElement.textContent.trim();
+    if (toasterMessage === 'Ваша ставка успешно принята!') {
+      worker.Helper.WriteLine('Ставка принята');
+      updateBalance();
+      return true;
+    }
+    worker.Helper.WriteLine(`Ставка не принята (${toasterMessage})`);
     return false;
   }
-  if (toasterMessage.textContent === 'Ваша ставка успешно принята!') {
-    worker.Helper.WriteLine('Ставка принята');
-    updateBalance();
-    return true;
+  const errorMessage = document.querySelector('#error-wraper-betslip');
+  if (errorMessage) {
+    const errorText = errorMessage.textContent.trim();
+    worker.Helper.WriteLine(`Текст результата: "${errorText}"`);
+    if (errorText === 'Ваша ставка успешно принята!') {
+      worker.Helper.WriteLine('Cтавка успешно принята');
+      updateBalance();
+      return true;
+    }
+    worker.Helper.WriteLine('Ставка не принята');
+    return false;
   }
-  worker.Helper.WriteLine('Ставка не принята');
-  worker.Helper.WriteLine(toasterMessage.textContent);
+  worker.Helper.WriteLine('Ставка не принята (результат ставки не найден)');
   return false;
 };
 

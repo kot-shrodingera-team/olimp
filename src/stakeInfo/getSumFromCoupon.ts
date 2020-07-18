@@ -1,28 +1,32 @@
-import { setReactInputValue } from '@kot-shrodingera-team/config/reactUtils';
 import { betCardInputSelector } from '../selectors';
 import isCupis from '../isCupis';
 
-const setStakeSumm = (sum: number): boolean => {
-  worker.Helper.WriteLine(`Вводим сумму ставки: ${sum}`);
+const getSumFromCoupon = (): number => {
   if (isCupis()) {
-    const betCardInput = document.querySelector(betCardInputSelector);
+    const betCardInput = document.querySelector(
+      betCardInputSelector
+    ) as HTMLInputElement;
     if (!betCardInput) {
       worker.Helper.WriteLine('Ошибка: Не найдено поле ввода суммы ставки');
-      return false;
+      return 0;
     }
-    setReactInputValue(betCardInput, sum);
-    return true;
+    try {
+      return parseFloat(betCardInput.value);
+    } catch (e) {
+      worker.Helper.WriteLine(
+        `Ошибка: Не удалось спарсить сумму ставки - ${e}`
+      );
+      return 0;
+    }
   }
   const sumInput = document.querySelector(
     'input[name="singlebet_sum0"]'
   ) as HTMLInputElement;
   if (!sumInput) {
     worker.Helper.WriteLine('Ошибка: Не найдено поле ввода суммы ставки');
-    return false;
+    return 0;
   }
-  sumInput.value = String(sum);
-  worker.StakeInfo.Summ = sum;
-  return true;
+  return Number(sumInput.value.replace(/ /g, ''));
 };
 
-export default setStakeSumm;
+export default getSumFromCoupon;

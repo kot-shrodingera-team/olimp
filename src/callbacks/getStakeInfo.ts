@@ -1,12 +1,12 @@
-import checkLogin from '../getInfo/checkLogin';
-import getStakeCount from '../getInfo/getStakeCount';
-import checkStakeEnabled from '../getInfo/checkStakeEnabled';
-import getCoefficientFromCoupon from '../getInfo/getCoefficientFromCoupon';
-import getBalance from '../getInfo/getBalance';
-import getMinimumStake from '../getInfo/getMinimumStake';
-import getMaximumStake from '../getInfo/getMaximumStake';
-import getSumFromCoupon from '../getInfo/getSumFromCoupon';
-import getParameterFromCoupon from '../getInfo/getParameterFromCoupon';
+import checkLogin from '../stakeInfo/checkLogin';
+import getStakeCount from '../stakeInfo/getStakeCount';
+import checkStakeEnabled from '../stakeInfo/checkStakeEnabled';
+import getCoefficientFromCoupon from '../stakeInfo/getCoefficientFromCoupon';
+import getBalance from '../stakeInfo/getBalance';
+import getMinimumStake from '../stakeInfo/getMinimumStake';
+import getMaximumStake from '../stakeInfo/getMaximumStake';
+import getSumFromCoupon from '../stakeInfo/getSumFromCoupon';
+import getParameterFromCoupon from '../stakeInfo/getParameterFromCoupon';
 import showStake from '../showStake';
 
 const getStakeInfo = (): string => {
