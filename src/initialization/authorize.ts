@@ -45,8 +45,8 @@ const setLoginType = async (): Promise<boolean> => {
       loginTab.click();
       if (![...loginTab.classList].includes('active')) {
         log('Ошибка: Не удалось переключиться на вход по логину', 'crimson');
+        return false;
       }
-      return false;
     }
     return true;
   }
