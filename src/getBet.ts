@@ -1,4 +1,6 @@
-const getBet = (): OlimpBet => {
+import { OlimpBet, OlimpCloneBet } from './bookmakerApi';
+
+const getBet = (): OlimpBet | OlimpCloneBet => {
   if (!betslip) {
     return null;
   }

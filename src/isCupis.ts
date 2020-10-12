@@ -1,4 +1,4 @@
 const isCupis = (): boolean =>
-  window.location.origin === 'https://www.olimp.bet';
+  /^(www\.)?olimp.bet$/.test(window.location.hostname);
 
 export default isCupis;
