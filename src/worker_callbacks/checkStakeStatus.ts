@@ -26,9 +26,11 @@ const checkStakeStatus = (): boolean => {
   }
   // Клон
   if (isClone()) {
-    const popurError = document.querySelector('.popup-error');
-    if (popurError) {
-      const popupErrorTextElement = popurError.querySelector('.js-txt');
+    const popupError = document.querySelector(
+      '.js-popup:not([style="display: none;"]) .popup-error'
+    );
+    if (popupError) {
+      const popupErrorTextElement = popupError.querySelector('.js-txt');
       if (!popupErrorTextElement) {
         log('Не найден текст ошибки ставки. Ставка не принята', 'red');
         return false;

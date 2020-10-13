@@ -38,9 +38,11 @@ const check = () => {
       log('Обработка ставки (индикатор)', 'tan');
       return true;
     }
-    const popurError = document.querySelector('.popup-error');
-    if (popurError) {
-      const popupErrorText = popurError.querySelector('.js-txt');
+    const popupError = document.querySelector(
+      '.js-popup:not([style="display: none;"]) .popup-error'
+    );
+    if (popupError) {
+      const popupErrorText = popupError.querySelector('.js-txt');
       if (!popupErrorText) {
         log('Обработка ставки (всплывающее окно, но нет текста)', 'tan');
         return true;
