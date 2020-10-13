@@ -14,6 +14,8 @@ let couponOpenning = false;
 export const isCouponOpenning = (): boolean => couponOpenning;
 
 const showStake = async (): Promise<void> => {
+  localStorage.setItem('couponOpening', '1');
+  couponOpenning = true;
   try {
     if (!checkUrl()) {
       log('Открыта не страница конторы (или зеркала)', 'crimson');
@@ -45,11 +47,13 @@ const showStake = async (): Promise<void> => {
 
     setBetAcceptMode();
     couponOpenning = false;
+    localStorage.setItem('couponOpening', '0');
     worker.JSStop();
   } catch (error) {
     if (error instanceof JsFailError) {
       log(error.message, 'red');
       couponOpenning = false;
+      localStorage.setItem('couponOpening', '0');
       worker.JSFail();
     }
     if (error instanceof NewUrlError) {

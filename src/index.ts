@@ -23,10 +23,13 @@ worker.SetCallBacks(
 worker.SetFastCallback(fastLoad);
 
 (async (): Promise<void> => {
-  log('Загрузка страницы', 'steelblue');
-  if (worker.IsShowStake) {
+  if (localStorage.getItem('couponOpening') === '1' && worker.IsShowStake) {
+    log('Загрузка страницы с открытием купона', 'steelblue');
     showStake();
-  } else {
+  } else if (!worker.IsShowStake) {
+    log('Загрузка страницы с авторизацией', 'steelblue');
     initialize();
+  } else {
+    log('Загрузка страницы без открытия купона', 'steelblue');
   }
 })();
