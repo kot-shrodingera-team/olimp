@@ -14,11 +14,11 @@ const preCheck = (): boolean => {
   // }
   const bet = getBet();
   if (!bet) {
-    log('Ставка недоступна (не найдена)');
+    log('Ставка недоступна (не найдена)', 'crimson');
     return false;
   }
   if (bet.deleted) {
-    log('Ставка недоступна (заблокирована)');
+    log('Ставка недоступна (заблокирована)', 'crimson');
     return false;
   }
   return true;
