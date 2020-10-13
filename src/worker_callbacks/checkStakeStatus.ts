@@ -41,7 +41,7 @@ const checkStakeStatus = (): boolean => {
       '.done:not([style="display: none;"])'
     );
     if (doneElement) {
-      log('ставка принята', 'green');
+      log('Ставка принята', 'green');
       return true;
     }
     const disabledBet = document.querySelector(
