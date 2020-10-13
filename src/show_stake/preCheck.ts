@@ -39,14 +39,14 @@ const preCheck = async (): Promise<void> => {
   }
   // Офшор
   if (window.location.href.includes(worker.EventId)) {
-    log('preCheck: Открыта страница нужного события');
+    log('Открыта страница нужного события', 'steelblue');
     await Promise.race([
       getElement('.basket-empty'),
       getElement('.busket-item'),
     ]);
     return;
   }
-  log('preCheck: Открыта не страница нужного события');
+  log('Открыта не страница нужного события', 'crimson');
   window.location.href = new URL(worker.EventUrl).href;
   throw new NewUrlError('Переходим на страницу события');
   // if (window.location.pathname !== '/betting') {
