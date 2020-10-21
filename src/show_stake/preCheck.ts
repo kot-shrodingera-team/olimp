@@ -47,7 +47,19 @@ const preCheck = async (): Promise<void> => {
     return;
   }
   log('Открыта не страница нужного события', 'crimson');
-  window.location.href = new URL(worker.EventUrl).href;
+  // https://olimp.com/live/5/6736/61691344
+  // https://olimp.com/index.php?page=line&action=2&live[]=61691344&sid[]=5
+  const sidRegex = /\/live\/(\d+)\//;
+  const sidMatch = worker.EventUrl.match(sidRegex);
+  if (!sidMatch) {
+    throw new JsFailError('Не найден sid. Сообщите в ТП');
+  }
+  const sid = sidMatch[1];
+  const url = new URL(
+    `index.php?page=line&action=2&live[]=${worker.EventId}&sid[]=${sid}`,
+    window.location.origin
+  );
+  window.location.href = url.href;
   throw new NewUrlError('Переходим на страницу события');
   // if (window.location.pathname !== '/betting') {
   //   log('Открыт не Live', 'steelblue');
