@@ -25,6 +25,13 @@ const checkStakeStatus = (): boolean => {
       updateBalance();
       return true;
     }
+    if (toasterMessage === 'Соединение оборвалось. Попробуйте ещё раз') {
+      const message =
+        `В Olimp ошибка ставки "Соединение оборвалось. Попробуйте ещё раз"\n` +
+        `${stakeInfoString()}\n` +
+        `Ставка засчитана как НЕ принятая. Желательно проверить вручную\n`;
+      worker.Helper.SendInformedMessage(message);
+    }
     log(`Ставка не принята (${toasterMessage})`, 'tomato');
     return false;
   }
