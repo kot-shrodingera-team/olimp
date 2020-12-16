@@ -1,5 +1,5 @@
-import isClone from '../isClone';
-import isCupis from '../isCupis';
+// import isClone from '../isClone';
+// import isCupis from '../isCupis';
 
 // export const minimumStakeReady = (() => {
 //   if (isCupis()) {
@@ -11,17 +11,13 @@ import isCupis from '../isCupis';
 //   return async (timeout = 5000, interval = 100): Promise<boolean> => true;
 // })();
 
-const getMinimumStake = (() => {
-  if (isCupis()) {
-    return () => 10;
+const getMinimumStake = (): number => {
+  switch (worker.Currency) {
+    case 'RUR':
+      return 10;
+    default:
+      return 0;
   }
-  if (isClone()) {
-    if (worker.Currency === 'EUR') {
-      return () => 0.1;
-    }
-    return () => 10;
-  }
-  return () => 10;
-})();
+};
 
 export default getMinimumStake;
