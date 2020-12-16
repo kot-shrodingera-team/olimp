@@ -2,7 +2,6 @@ import { getElement, log } from '@kot-shrodingera-team/germes-utils';
 import isClone from '../isClone';
 import isCupis from '../isCupis';
 import JsFailError from './errors/jsFailError';
-import NewUrlError from './errors/newUrlError';
 
 const openEvent = async (): Promise<void> => {
   // ЦУПИС
