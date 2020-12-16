@@ -120,9 +120,28 @@ const openBet = async (): Promise<boolean> => {
   // Офшор
   const betId = worker.BetId.split('_')[1];
 
+  log(`Ищем ставку "${worker.BetName}"`, 'steelblue');
+
   const bet = (await getElement(`span[id*="${betId}"]`)) as HTMLElement;
 
   if (!bet) {
+    log(`Selector = span[id*="${betId}"]`, 'white', true);
+    const bets = document.querySelectorAll('.googleStatIssue');
+    bets.forEach((betElement) => {
+      const betNameElement = betElement.querySelector('.googleStatIssueName');
+      if (!betNameElement) {
+        log('Не найден заголовок ставки', 'white', true);
+        return;
+      }
+      const betName = betNameElement.textContent.trim();
+      const betSel = betElement.querySelector('.bet_sel');
+      if (!betSel) {
+        log('Не найден betSel ставки', 'white', true);
+        return;
+      }
+      const betSelId = betSel.getAttribute('id');
+      log(`${betName}: ${betSelId}`, 'white', true);
+    });
     throw new JsFailError('Ставка не найдена');
   }
 
