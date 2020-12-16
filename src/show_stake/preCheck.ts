@@ -49,7 +49,7 @@ const preCheck = async (): Promise<void> => {
   log('Открыта не страница нужного события', 'crimson');
   // https://olimp.com/live/5/6736/61691344
   // https://olimp.com/index.php?page=line&action=2&live[]=61691344&sid[]=5
-  const sidRegex = /\/live\/(\d+)\//;
+  const sidRegex = /\/live\/(\d+)\/./;
   const sidMatch = worker.EventUrl.match(sidRegex);
   if (!sidMatch) {
     throw new JsFailError('Не найден sid. Сообщите в ТП');
