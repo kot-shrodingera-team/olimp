@@ -35,7 +35,7 @@ const getMaximumStake = (() => {
       maximumStakeElementSelector:
         '.bet-card-wrap__BetCardWrap-muhxrm-0 .single__InfoMax-f0u43l-0:last-child',
       maximumStakeRegex: null,
-      log: false,
+      disableLog: true,
     });
   }
   if (isClone()) {
