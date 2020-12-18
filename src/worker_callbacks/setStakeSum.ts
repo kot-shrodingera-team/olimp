@@ -11,7 +11,9 @@ const setStakeSum = (() => {
     return setStakeSumGenerator({
       sumInputSelector:
         '.bet-card-wrap__BetCardWrap-muhxrm-0 input.number-light__Input-sc-1kxvi0w-1',
-      alreadySetCheck: true,
+      alreadySetCheck: {
+        falseOnSumChange: false,
+      },
       inputType: 'react',
       // preInputCheck,
     });
@@ -19,14 +21,18 @@ const setStakeSum = (() => {
   if (isClone()) {
     return setStakeSumGenerator({
       sumInputSelector: 'input.stakeInput',
-      alreadySetCheck: true,
+      alreadySetCheck: {
+        falseOnSumChange: false,
+      },
       inputType: 'fireEvent',
       // preInputCheck,
     });
   }
   return setStakeSumGenerator({
     sumInputSelector: 'input[name="singlebet_sum0"]',
-    alreadySetCheck: true,
+    alreadySetCheck: {
+      falseOnSumChange: false,
+    },
     inputType: 'fireEvent',
     // preInputCheck,
   });
