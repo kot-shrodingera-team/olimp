@@ -4,12 +4,17 @@ import getCoefficient from '../stake_info/getCoefficient';
 import { clearDoStakeTime } from '../stake_info/doStakeTime';
 import isCupis from '../isCupis';
 import isClone from '../isClone';
+import { clearNoResultScreenshot } from './checkCouponLoading';
 
 // const preCheck = (): boolean => {
 //   return true;
 // };
 
 const postCheck = (): boolean => {
+  if (isCupis()) {
+    clearNoResultScreenshot();
+    return true;
+  }
   if (isClone()) {
     const oddsChanged = document.querySelector(
       '.odds_changed:not([style="display: none;"])'
@@ -48,7 +53,7 @@ const doStake = (() => {
       //     message: '',
       //   },
       // ],
-      // postCheck,
+      postCheck,
       clearDoStakeTime,
     });
   }

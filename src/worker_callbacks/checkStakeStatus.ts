@@ -10,29 +10,37 @@ import getBalance, { updateBalance } from '../stake_info/getBalance';
 const checkStakeStatus = (): boolean => {
   // ЦУПИС
   if (isCupis()) {
-    const toasterMessageElements = [
-      ...document.querySelectorAll('.toaster__Toast-sc-1pone7r-1 .message'),
-    ];
-    if (toasterMessageElements.length === 0) {
-      log('Результат ставки не найден (не найдено сообщение)', 'red');
+    const resultMessageElement = document.querySelector(
+      '.results__ResultsMessage-sc-7a3lgm-0'
+    );
+    if (resultMessageElement) {
+      const resultMessage = resultMessageElement.textContent.trim();
+      if (resultMessage === 'Ваша ставка успешно принята!') {
+        log('Ставка принята', 'green');
+        updateBalance();
+        return true;
+      }
+      if (resultMessage === 'Соединение оборвалось. Попробуйте ещё раз') {
+        const message =
+          `В Olimp ошибка ставки "Соединение оборвалось. Попробуйте ещё раз"\n` +
+          `${stakeInfoString()}\n` +
+          `Ставка засчитана как НЕ принятая. Желательно проверить вручную\n`;
+        worker.Helper.SendInformedMessage(message);
+        log('Ошибка соединения. Считаем ставку не принятой', 'red');
+        return false;
+      }
+      log(`Результат ставки: "${resultMessage}"`, 'tomato');
+      log('Ставка не принята', 'red');
       return false;
     }
-    const toasterMessageElement =
-      toasterMessageElements[toasterMessageElements.length - 1];
-    const toasterMessage = toasterMessageElement.textContent.trim();
-    if (toasterMessage === 'Ваша ставка успешно принята!') {
-      log('Ставка принята', 'green');
-      updateBalance();
-      return true;
+    const betCard = document.querySelector(
+      '.bet-card-wrap__BetCardWrap-muhxrm-0'
+    );
+    if (betCard) {
+      log('Повилась карточка ставки. Ставка не принята', 'red');
+      return false;
     }
-    if (toasterMessage === 'Соединение оборвалось. Попробуйте ещё раз') {
-      const message =
-        `В Olimp ошибка ставки "Соединение оборвалось. Попробуйте ещё раз"\n` +
-        `${stakeInfoString()}\n` +
-        `Ставка засчитана как НЕ принятая. Желательно проверить вручную\n`;
-      worker.Helper.SendInformedMessage(message);
-    }
-    log(`Ставка не принята (${toasterMessage})`, 'tomato');
+    log('Не найден результат. Ставка не принята', 'red');
     return false;
   }
   // Клон

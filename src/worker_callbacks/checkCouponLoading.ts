@@ -9,6 +9,11 @@ import {
   setCurrentCoefficient,
 } from './afterSuccesfulStake';
 
+let noResultSreenshot = false;
+export const clearNoResultScreenshot = (): void => {
+  noResultSreenshot = false;
+};
+
 const check = () => {
   // ЦУПИС
   if (isCupis()) {
@@ -16,18 +21,29 @@ const check = () => {
       '.common-loader__PreloaderWrap-sc-24uv27-0'
     );
     if (betslipBodyLoader) {
-      log('Обработка ставки', 'tan');
+      log('Обработка ставки (индикатор)', 'tan');
       return true;
     }
-    const toasterMessage = document.querySelector(
-      '.toaster__Toast-sc-1pone7r-1 .message'
+    const resultMessage = document.querySelector(
+      '.results__ResultsMessage-sc-7a3lgm-0'
     );
-    if (!toasterMessage) {
-      log('Обработка ставки (нет лоадера и результата)', 'tan');
-      return true;
+    if (resultMessage) {
+      log('Обработка ставки завершена (есть результат)', 'orange');
+      return false;
     }
-    log('Обработка ставки завершена (есть результат)', 'orange');
-    return false;
+    const betCard = document.querySelector(
+      '.bet-card-wrap__BetCardWrap-muhxrm-0'
+    );
+    if (betCard) {
+      log('Обработка ставки завершена (появился betCard)', 'orange');
+      return false;
+    }
+    if (noResultSreenshot === false) {
+      worker.TakeScreenShot(false);
+      noResultSreenshot = true;
+    }
+    log('Обработка ставки (нет лоадера и результата)', 'tan');
+    return true;
   }
   // Клон
   if (isClone()) {
