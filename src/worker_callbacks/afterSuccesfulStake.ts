@@ -27,7 +27,7 @@ const afterSuccesfulStake = (): void => {
   }
   // Офшор
   log('Обновление итогового коэффициента', 'steelblue');
-  if (currentCoefficient !== worker.StakeInfo.Coef) {
+  if (currentCoefficient && currentCoefficient !== worker.StakeInfo.Coef) {
     log(
       `Коеффициент изменился: ${worker.StakeInfo.Coef} => ${currentCoefficient}`,
       'orange'
