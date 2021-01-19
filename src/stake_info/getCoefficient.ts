@@ -7,8 +7,7 @@ import isCupis from '../isCupis';
 const getCoefficient = (() => {
   if (isCupis()) {
     return getCoefficientGenerator({
-      coefficientSelector:
-        '.bet-card-wrap__BetCardWrap-muhxrm-0 .bet-card__BetValue-mhg7ic-2 span.cur-val',
+      coefficientSelector: '.cur-val',
     });
   }
   // if (isClone()) {
