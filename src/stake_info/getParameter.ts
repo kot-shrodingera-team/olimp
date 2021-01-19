@@ -7,7 +7,7 @@ import isCupis from '../isCupis';
 const getParameter = (): number => {
   if (isCupis()) {
     const betOutcomeName = document.querySelector(
-      '.bet-card-wrap__BetCardWrap-muhxrm-0 .bet-card__OutcomeName-mhg7ic-3'
+      '.bet-card__OutcomeName-mhg7ic-4'
     );
     if (!betOutcomeName) {
       log('Не найден параметр (не найдена роспись ставки)');
