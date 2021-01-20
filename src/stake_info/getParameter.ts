@@ -7,10 +7,10 @@ import isCupis from '../isCupis';
 const getParameter = (): number => {
   if (isCupis()) {
     const betOutcomeName = document.querySelector(
-      '.bet-card__OutcomeName-mhg7ic-4'
+      '[class^="bet-card__OutcomeName-mhg7ic"]'
     );
     if (!betOutcomeName) {
-      log('Не найден параметр (не найдена роспись ставки)');
+      log('Не найден параметр (не найдена роспись ставки)', 'crimson');
       return -9999;
     }
     const parameterRegex = /^.*\(([+-]?\d+(?:\.\d+)?)\)(?: бол| мен)?$/;
